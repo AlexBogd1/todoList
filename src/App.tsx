@@ -86,10 +86,10 @@ function App() {
 
     }
 
-    function removeTodolist (todoListId: string) {
-       setTodoLists(todoLists.filter( tl => tl.id !== todoListId));
-       delete tasks[todoListId];
-       setTasks({...tasks});
+    function removeTodolist(todoListId: string) {
+        setTodoLists(todoLists.filter(tl => tl.id !== todoListId));
+        delete tasks[todoListId];
+        setTasks({...tasks});
     }
 
     return (
