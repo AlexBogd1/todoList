@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 type PropsType = {
     id: string
@@ -29,13 +30,15 @@ export function TodoList(props: PropsType) {
             props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
         }
 
+
         return (
             <li key={t.id} className={t.isDone ? 'is-done' : ''}>
                 <input
                     type="checkbox"
                     onChange={changeStatus}
                     checked={t.isDone}/>
-                <span>{t.title}</span>
+                    <EditableSpan title={t.title} changeTitle={}/>
+                {/*<span>{t.title}</span>*/}
                 <button onClick={removeTask}>x</button>
             </li>
         )
@@ -53,18 +56,8 @@ export function TodoList(props: PropsType) {
     const onAllClickHandler = () => props.changeFilter('all', props.id);
     const onActiveClickHandler = () => props.changeFilter('active', props.id);
     const onCompletedClickHandler = () => props.changeFilter('completed', props.id);
+    const addTask = (title: string) => { props.addTask(title, props.id); }
 
-    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setTitle(e.currentTarget.value);
-    // }
-    // const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    //     setError('');
-    //     if (e.key === "Enter") onAddTaskClick();
-    // }
-
-    const addTask = (title: string) => {
-        props.addTask(title, props.id);
-    }
     return (
         <div>
             <h3>{props.title}
