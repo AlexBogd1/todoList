@@ -60,11 +60,30 @@ function App() {
         setTasks({...tasks});
     }
 
+
+
     function changeTaskStatus(taskId: string, isDone: boolean, todoListId: string) {
         const todoList = tasks[todoListId];
         let newTodoList = todoList.map(task => {
             if (task.id == taskId) {
                 return {...task, isDone: isDone}
+            }
+            return task;
+        })
+        tasks[todoListId] = newTodoList;
+        setTasks({...tasks})
+
+        //     let task = tasks.find(task=> task.id === taskId );
+        //     if(task) {
+        //         task.isDone = isDone;
+        //         setTasks({...tasks});
+        //     }
+    }
+    function changeTaskTitle(taskId: string,todoListId: string, title: string) {
+        const todoList = tasks[todoListId];
+        let newTodoList = todoList.map(task => {
+            if (task.id == taskId) {
+                return {...task, title: title}
             }
             return task;
         })
@@ -131,6 +150,7 @@ function App() {
                             changeFilter={changeFilter}
                             removeTodolist={removeTodolist}
                             changeTaskStatus={changeTaskStatus}
+                            changeTaskTitle = {changeTaskTitle}
 
                         />
                     )
