@@ -16,8 +16,8 @@ type PropsType = {
 export function TodoList(props: PropsType) {
 
 
-    const [title, setTitle] = useState<string>('');
-    let [error, setError] = useState<string | null>(null);
+    // const [title, setTitle] = useState<string>('');
+    // let [error, setError] = useState<string | null>(null);
 
     let tasks = props.tasks.map(t => {
 
@@ -40,42 +40,42 @@ export function TodoList(props: PropsType) {
         )
     })
 
-    const onAddTaskClick = () => {
-        if (title.trim() !== '') {
-            props.addTask(title.trim(), props.id);
-            setTitle('');
-        } else {
-            setError('Title is required');
-        }
-    }
+    // const onAddTaskClick = () => {
+    //     if (title.trim() !== '') {
+    //         props.addTask(title.trim(), props.id);
+    //         setTitle('');
+    //     } else {
+    //         setError('Title is required');
+    //     }
+    // }
     const removeTodoList = () => props.removeTodolist(props.id);
     const onAllClickHandler = () => props.changeFilter('all', props.id);
     const onActiveClickHandler = () => props.changeFilter('active', props.id);
     const onCompletedClickHandler = () => props.changeFilter('completed', props.id);
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value);
-    }
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('');
-        if (e.key === "Enter") onAddTaskClick();
-    }
+    // const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setTitle(e.currentTarget.value);
+    // }
+    // const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    //     setError('');
+    //     if (e.key === "Enter") onAddTaskClick();
+    // }
 
     return (
         <div>
             <h3>{props.title}
                 <button onClick={removeTodoList}>X</button>
             </h3>
-            <div>
-                <input
-                    value={title}
-                    onChange={onChangeHandler}
-                    onKeyPress={onKeyPressHandler}
-                    className={error ? 'error' : ''}
-                />
-                <button onClick={onAddTaskClick}>+</button>
-                {error && <div className={'error-message'}>{error}</div>}
-            </div>
+            {/*<div>*/}
+            {/*    <input*/}
+            {/*        value={title}*/}
+            {/*        onChange={onChangeHandler}*/}
+            {/*        onKeyPress={onKeyPressHandler}*/}
+            {/*        className={error ? 'error' : ''}*/}
+            {/*    />*/}
+            {/*    <button onClick={onAddTaskClick}>+</button>*/}
+            {/*    {error && <div className={'error-message'}>{error}</div>}*/}
+            {/*</div>*/}
             <ul>
                 {tasks}
             </ul>
