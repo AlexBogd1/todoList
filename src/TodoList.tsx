@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
+import AddItemForm from "./AddItemForm";
 
 type PropsType = {
     id: string
@@ -61,11 +62,15 @@ export function TodoList(props: PropsType) {
     //     if (e.key === "Enter") onAddTaskClick();
     // }
 
+    const addTask = (title: string) => {
+        props.addTask(title, props.id);
+    }
     return (
         <div>
             <h3>{props.title}
                 <button onClick={removeTodoList}>X</button>
             </h3>
+            <AddItemForm addItem={addTask} />
             {/*<div>*/}
             {/*    <input*/}
             {/*        value={title}*/}
