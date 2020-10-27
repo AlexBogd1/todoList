@@ -40,7 +40,7 @@ export function TodoList(props: PropsType) {
 
 
         return (
-            <li key={t.id} className={t.isDone ? 'is-done' : ''}>
+            <li key={t.id} className={t.isDone ? 'is-done' : ''} >
                 {/*<input*/}
                 {/*    type="checkbox"*/}
                 {/*    onChange={changeStatus}*/}
@@ -87,7 +87,7 @@ export function TodoList(props: PropsType) {
             </h3>
             <AddItemForm addItem={addTask}/>
 
-            <ul>
+            <ul style ={{listStyle: "none", paddingLeft: "0"}}>
                 {tasks}
             </ul>
             <div>
