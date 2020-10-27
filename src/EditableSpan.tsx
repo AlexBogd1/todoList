@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 
 type EditableSpanPropsType = {
     title: string
-    changeTitle: (title: string) =>void
+    changeTitle: (title: string) => void
 }
 
 function EditableSpan(props: EditableSpanPropsType) {

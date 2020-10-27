@@ -2,6 +2,8 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
+import {IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 type PropsType = {
     id: string
@@ -14,6 +16,7 @@ type PropsType = {
     removeTodolist: (todoListId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todoListId: string) => void
     changeTaskTitle: (taskId: string, todoListId: string, title: string) => void
+    changeTodoListTitle: (todolistId: string, title: string) => void
 }
 
 export function TodoList(props: PropsType) {
@@ -41,9 +44,11 @@ export function TodoList(props: PropsType) {
                     type="checkbox"
                     onChange={changeStatus}
                     checked={t.isDone}/>
-                    <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                {/*<span>{t.title}</span>*/}
-                <button onClick={removeTask}>x</button>
+                <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
+                <IconButton onClick={removeTask}>
+                    <Delete/>
+                </IconButton>
+
             </li>
         )
     })
@@ -60,24 +65,22 @@ export function TodoList(props: PropsType) {
     const onAllClickHandler = () => props.changeFilter('all', props.id);
     const onActiveClickHandler = () => props.changeFilter('active', props.id);
     const onCompletedClickHandler = () => props.changeFilter('completed', props.id);
-    const addTask = (title: string) => { props.addTask(title, props.id); }
-
+    const addTask = (title: string) => {
+        props.addTask(title, props.id);
+    }
+    const changeTodoListTitle = (title: string) => {
+        props.changeTodoListTitle(props.id, title);
+    }
     return (
         <div>
-            <h3>{props.title}
-                <button onClick={removeTodoList}>X</button>
+            <h3>
+                <EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
+                <IconButton onClick={removeTodoList}>
+                    <Delete/>
+                </IconButton>
             </h3>
-            <AddItemForm addItem={addTask} />
-            {/*<div>*/}
-            {/*    <input*/}
-            {/*        value={title}*/}
-            {/*        onChange={onChangeHandler}*/}
-            {/*        onKeyPress={onKeyPressHandler}*/}
-            {/*        className={error ? 'error' : ''}*/}
-            {/*    />*/}
-            {/*    <button onClick={onAddTaskClick}>+</button>*/}
-            {/*    {error && <div className={'error-message'}>{error}</div>}*/}
-            {/*</div>*/}
+            <AddItemForm addItem={addTask}/>
+
             <ul>
                 {tasks}
             </ul>
