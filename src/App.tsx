@@ -6,7 +6,6 @@ import AddItemForm from "./AddItemForm";
 import {AppBar, IconButton, Typography, Button, Toolbar, Container, Grid, Paper} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 
-
 export type TaskType = {
     id: string
     title: string
