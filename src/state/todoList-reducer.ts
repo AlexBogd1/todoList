@@ -1,7 +1,5 @@
 import {FilterValuesType, TodoListType} from "../App";
-import { v1 } from "uuid";
-import {strict} from "assert";
-
+import {v1} from "uuid";
 
 
 export type ActionsType = RemoveTodoListActionType | AddTodoListActionType | ChangeTodoListActionType | ChangeTodoListFilterActionType
