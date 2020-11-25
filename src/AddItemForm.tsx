@@ -7,19 +7,21 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-function AddItemForm(props: AddItemFormPropsType) {
+ const AddItemForm  = React.memo((props: AddItemFormPropsType) => {
+    console.log('inside AddItemForm')
+
     const [title, setTitle] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value);
     }
-
     const onAddItemKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('');
+        if (error !== null){
+            setError('');
+        }
         if (e.key === "Enter") onAddItemClick();
     }
-
     const onAddItemClick = () => {
         if (title.trim() !== '') {
             props.addItem(title.trim());
@@ -31,12 +33,6 @@ function AddItemForm(props: AddItemFormPropsType) {
 
     return (
         <div>
-            {/*<input*/}
-            {/*    value={title}*/}
-            {/*    onChange={onChangeHandler}*/}
-            {/*    onKeyPress={onAddItemKeyPress}*/}
-            {/*    className={error ? 'error' : ''}*/}
-            {/*/>*/}
             <TextField
                 variant = {'outlined'}
                 size = {'small'}
@@ -54,7 +50,7 @@ function AddItemForm(props: AddItemFormPropsType) {
             {/*{error && <div className={'error-message'}>{error}</div>}*/}
         </div>
     );
-}
+})
 
 
 export default AddItemForm;

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValuesType, TaskType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
@@ -20,13 +20,21 @@ type PropsType = {
     changeTodoListTitle: (todolistId: string, title: string) => void
 }
 
-export function TodoList(props: PropsType) {
+export const TodoList = React.memo((props: PropsType) => {
+    // let todolist = useSelector<AppRootStateType, TodoListType>(state => state.todolists.filter(t => t.id !== props.id)[0])
+    // let dispatch = useDispatch();
 
+    console.log('inside Todolist')
+    let tasksForTodolist = props.tasks;
 
-    // const [title, setTitle] = useState<string>('');
-    // let [error, setError] = useState<string | null>(null);
+    if (props.filter === 'active') {
+        tasksForTodolist = props.tasks.filter(task => task.isDone === false);
+    }
+    if (props.filter === 'completed') {
+        tasksForTodolist = props.tasks.filter(task => task.isDone === true);
+    }
 
-    let tasks = props.tasks.map(t => {
+    let tasks = tasksForTodolist.map(t => {
 
         const removeTask = () => {
             props.removeTask(t.id, props.id);
@@ -59,24 +67,23 @@ export function TodoList(props: PropsType) {
         )
     })
 
-    // const onAddTaskClick = () => {
-    //     if (title.trim() !== '') {
-    //         props.addTask(title.trim(), props.id);
-    //         setTitle('');
-    //     } else {
-    //         setError('Title is required');
-    //     }
-    // }
-    const removeTodoList = () => props.removeTodolist(props.id);
-    const onAllClickHandler = () => props.changeFilter('all', props.id);
-    const onActiveClickHandler = () => props.changeFilter('active', props.id);
-    const onCompletedClickHandler = () => props.changeFilter('completed', props.id);
-    const addTask = (title: string) => {
+    const removeTodoList = useCallback(() => props.removeTodolist(props.id),
+        [props.removeTodolist,props.id]);
+    const onAllClickHandler = useCallback(() => props.changeFilter('all', props.id),
+        [props.changeFilter,props.id]) ;
+    const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.id),
+        [props.changeFilter,props.id]);
+    const onCompletedClickHandler = useCallback( () => props.changeFilter('completed', props.id),
+        [props.changeFilter,props.id]);
+    const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
-    }
-    const changeTodoListTitle = (title: string) => {
+    },[props.id, props.addTask])
+    const changeTodoListTitle = useCallback((title: string) => {
         props.changeTodoListTitle(props.id, title);
-    }
+    },
+        [props.changeTodoListTitle,props.id])
+
+
     return (
         <div>
             <h3>
@@ -115,4 +122,4 @@ export function TodoList(props: PropsType) {
             </div>
         </div>
     )
-}
+})
