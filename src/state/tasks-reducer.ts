@@ -78,8 +78,8 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistID: 
     return {type: "CHANGE-TASK-STATUS", taskId, isDone, todolistID} as const;
 }
 
-export const changeTitleAC = (taskId: string, title: string, todolistID: string) => {
-    return {type: "CHANGE-TITLE", taskId, title, todolistID} as const;
+export const changeTitleAC = (taskId: string,  todolistID: string, title: string) => {
+    return {type: "CHANGE-TITLE", taskId, todolistID, title} as const;
 }
 
 

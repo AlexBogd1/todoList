@@ -5,6 +5,7 @@ import EditableSpan from "./EditableSpan";
 import {Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
+import {Task} from "./Task";
 
 type PropsType = {
     id: string
@@ -36,34 +37,26 @@ export const TodoList = React.memo((props: PropsType) => {
 
     let tasks = tasksForTodolist.map(t => {
 
-        const removeTask = () => {
-            props.removeTask(t.id, props.id);
-        }
-        const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
-            props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
-        }
-        const changeTaskTitle = (title: string) => {
-            props.changeTaskTitle(t.id, props.id, title);
-        }
+        // const removeTask = () => {
+        //     props.removeTask(t.id, props.id);
+        // }
+        // const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        //     props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
+        // }
+        // const changeTaskTitle = (title: string) => {
+        //     props.changeTaskTitle(t.id, props.id, title);
+        // }
 
 
         return (
-            <li key={t.id} className={t.isDone ? 'is-done' : ''} >
-                {/*<input*/}
-                {/*    type="checkbox"*/}
-                {/*    onChange={changeStatus}*/}
-                {/*    checked={t.isDone}/>*/}
-                <Checkbox
-                    onChange={changeStatus}
-                    checked={t.isDone}
-                    color ={'primary'}
-                />
-                <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                <IconButton onClick={removeTask}>
-                    <Delete/>
-                </IconButton>
-
-            </li>
+            <Task
+                todoListId={props.id}
+                task={t}
+                changeStatus={props.changeTaskStatus}
+                changeTaskTitle={props.changeTaskTitle}
+                removeTask={props.removeTask}
+                key ={t.id}
+            />
         )
     })
 

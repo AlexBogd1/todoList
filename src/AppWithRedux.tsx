@@ -47,8 +47,8 @@ function AppWithRedux() {
         dispatch(changeTaskStatusAC(taskId, isDone, todoListId))
     }, [dispatch])
 
-    const changeTaskTitle = useCallback((taskId: string, title: string, todoListId: string) => {
-        dispatch(changeTitleAC(taskId, title, todoListId))
+    const changeTaskTitle = useCallback((taskId: string, todoListId: string, title: string) => {
+        dispatch(changeTitleAC(taskId, todoListId, title))
     }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todoListId: string) => {
@@ -97,8 +97,8 @@ function AppWithRedux() {
                                 <Grid item>
                                     <Paper elevation={6} style={{padding: '15px'}}>
                                         <TodoList
-                                            id={tl.id}
                                             key={tl.id}
+                                            id={tl.id}
                                             title={tl.title}
                                             tasks={tasksForTodoList}
                                             filter={tl.filter}
