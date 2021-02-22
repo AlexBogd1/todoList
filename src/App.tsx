@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import './App.css';
 import {TodoList} from "./TodoList";
 import {v1} from "uuid";
@@ -113,16 +113,19 @@ function App() {
         setTasks({...tasks});
     }
 
-    function addTodoList(title: string) {
-        const newTodoListId = v1();
-        const newTodoList: TodoListType = {
-            id: newTodoListId,
-            title: title,
-            filter: "all",
-        }
-        setTodoLists([newTodoList, ...todoLists]);
-        setTasks({...tasks, [newTodoListId]: []});
-    }
+    const addTodoList = useCallback(
+        (title: string) => {
+            const newTodoListId = v1();
+            const newTodoList: TodoListType = {
+                id: newTodoListId,
+                title: title,
+                filter: "all",
+            }
+            setTodoLists([newTodoList, ...todoLists]);
+            setTasks({...tasks, [newTodoListId]: []});
+        },
+        [setTodoLists, setTasks],
+    ) 
 
     function changeTodoListTitle(todolistId: string, title: string) {
         const todoList = todoLists.find(tl => tl.id === todolistId);
